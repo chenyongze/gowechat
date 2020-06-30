@@ -63,7 +63,7 @@ func (material *Material) AddNews(articles []*Article) (mediaID string, err erro
 	}
 
 	var res resArticles
-	err = json.Unmarshal(responseBytes, res)
+	err = json.Unmarshal(responseBytes, &res)
 	if err != nil {
 		return
 	}
@@ -93,8 +93,8 @@ type ArticleDetail struct {
 
 //ReqNews ReqNews
 type ReqNews struct {
-	CreateTime int         `json:"create_time"`
-	UpdateTime int         `json:"update_time"`
+	CreateTime int              `json:"create_time"`
+	UpdateTime int              `json:"update_time"`
 	NewsItem   []*ArticleDetail `json:"news_item"`
 }
 
@@ -121,15 +121,15 @@ func (material *Material) GetNews(mediaID string) (res *ReqNews, err error) {
 	return
 }
 
-//ReqNewsList ReqNewsList
-type ReqNewsList struct {
-	Item       []*ReqNewsListItem `json:"item"`
+//ResNewsList ResNewsList
+type ResNewsList struct {
+	Item       []*ResNewsListItem `json:"item"`
 	TotalCount int                `json:"total_count"`
 	ItemCount  int                `json:"item_count"`
 }
 
-// ReqNewsListItem ReqNewsListItem
-type ReqNewsListItem struct {
+// ResNewsListItem ResNewsListItem
+type ResNewsListItem struct {
 	MediaID    string   `json:"media_id"`
 	UpdateTime int      `json:"update_time"`
 	Content    *ReqNews `json:"content"`
@@ -137,16 +137,16 @@ type ReqNewsListItem struct {
 
 //resNewsList resNewsList
 // type=news offset=0 count=1
-type resNewsList struct {
+type reqNewsListData struct {
 	Type   string `json:"type"`
 	Offset int    `json:"offset"`
 	Count  int    `json:"count"`
 }
 
 // GetNewsList GetNewsList
-func (material *Material) GetNewsList(type_cn string, offset, count int) (res *ReqNewsList, err error) {
-	req := &resNewsList{
-		Type:   type_cn,
+func (material *Material) GetNewsList(typeCn string, offset, count int) (res *ResNewsList, err error) {
+	req := &reqNewsListData{
+		Type:   typeCn,
 		Offset: offset,
 		Count:  count,
 	}
@@ -157,7 +157,7 @@ func (material *Material) GetNewsList(type_cn string, offset, count int) (res *R
 		return
 	}
 
-	res = new(ReqNewsList)
+	res = new(ResNewsList)
 	err = json.Unmarshal(responseBytes, res)
 	fmt.Println("res:", res)
 	fmt.Println("err2:", err)
