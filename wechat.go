@@ -44,8 +44,7 @@ func (wc *Wechat) MchMgr() (mch *MchMgr, err error) {
 	if err != nil {
 		return
 	}
-	mch = new(MchMgr)
-	mch.Wechat = wc
+	mch = &MchMgr{Wechat: wc}
 	return
 }
 
@@ -55,8 +54,8 @@ func (wc *Wechat) MpMgr() (mp *MpMgr, err error) {
 	if err != nil {
 		return
 	}
-	mp = new(MpMgr)
-	mp.Wechat = wc
+
+	mp = &MpMgr{Wechat: wc}
 	return
 }
 

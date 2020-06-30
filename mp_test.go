@@ -9,12 +9,14 @@ import (
 
 func TestGetQrcode(t *testing.T) {
 	config := wxcontext.Config{
-		AppID:     "wx88c493c9a9f67ea6",
-		AppSecret: "0c1fe2db856c60d9c52b65383feadae1",
-		Token:     "zyt2864",
+		AppID:     "wxb230e8e6858ad365",
+		AppSecret: "587b86fa560021de690bbbb10e5e4afe",
+		Token:     "xgk_test",
 	}
 	wc := NewWechat(config)
 	beego.Debug("wechat's cache:", wc.Context.Cache)
 	mp, _ := wc.MpMgr()
-	mp.GetQrcode().CreatePermanentQRCodeWithSceneString("test")
+	qrcode, err := mp.GetQrcode().CreatePermanentQRCodeWithSceneString("aaa")
+	beego.Debug("qrcode:", qrcode.ImageURL())
+	beego.Debug("err:", err)
 }
