@@ -76,8 +76,8 @@ type resMedia struct {
 	MediaID string `json:"media_id"`
 }
 
-//Articlex 永久图文素材
-type Articlex struct {
+//ArticleDetail 永久图文素材
+type ArticleDetail struct {
 	Title              string `json:"title"`
 	ThumbMediaID       string `json:"thumb_media_id"`
 	Author             string `json:"author"`
@@ -95,7 +95,7 @@ type Articlex struct {
 type ReqNews struct {
 	CreateTime int         `json:"create_time"`
 	UpdateTime int         `json:"update_time"`
-	NewsItem   []*Articlex `json:"news_item"`
+	NewsItem   []*ArticleDetail `json:"news_item"`
 }
 
 // GetNews 获取素材
